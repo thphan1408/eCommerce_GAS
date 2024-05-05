@@ -1,0 +1,40 @@
+@url_dev=http://localhost:8080/v1/api/
+
+### SIGN UP
+POST {{url_dev}}/shop/signup
+Content-Type: application/json
+x-api-key: 9549e9c21ec008ae51a1e43b01679bb1f8f5046a18879361d642f33275a3480495df1f4582ba9a21aca4e6e6d2339f0dd91edac5c61e6cde22631c95ead7ae18
+
+{
+    "name": "Thành Phan",
+    "email": "test006@gmail.com",
+    "password": "123"
+}
+
+### LOGIN
+POST {{url_dev}}/shop/login
+Content-Type: application/json
+x-api-key: 9549e9c21ec008ae51a1e43b01679bb1f8f5046a18879361d642f33275a3480495df1f4582ba9a21aca4e6e6d2339f0dd91edac5c61e6cde22631c95ead7ae18
+
+{
+    "email": "test006@gmail.com",
+    "password": "123"
+}
+
+### LOGOUT
+POST {{url_dev}}/shop/logout
+Content-Type: application/json
+x-api-key: 9549e9c21ec008ae51a1e43b01679bb1f8f5046a18879361d642f33275a3480495df1f4582ba9a21aca4e6e6d2339f0dd91edac5c61e6cde22631c95ead7ae18
+x-client-id: 6634f83d363ffdd24d0d384b
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM0ZjgzZDM2M2ZmZGQyNGQwZDM4NGIiLCJlbWFpbCI6InRlc3QwMDZAZ21haWwuY29tIiwiaWF0IjoxNzE0ODg0OTE0LCJleHAiOjE3MTUwNTc3MTR9.8moN-mpcYgHJaRxk6pLXrwvR06hlZMg1m2WeC9-mWSk
+
+### REFRESH TOKEN
+POST {{url_dev}}/shop/handlerRefreshToken
+Content-Type: application/json
+x-api-key: 9549e9c21ec008ae51a1e43b01679bb1f8f5046a18879361d642f33275a3480495df1f4582ba9a21aca4e6e6d2339f0dd91edac5c61e6cde22631c95ead7ae18
+x-client-id: 6634f83d363ffdd24d0d384b
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM0ZjgzZDM2M2ZmZGQyNGQwZDM4NGIiLCJlbWFpbCI6InRlc3QwMDZAZ21haWwuY29tIiwiaWF0IjoxNzE0ODg0NzI3LCJleHAiOjE3MTUwNTc1Mjd9.DFvUSYvGwjS4p_q5PfrTK-jQjLsWsPpaOaf6iaZ5ad0
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM0ZjgzZDM2M2ZmZGQyNGQwZDM4NGIiLCJlbWFpbCI6InRlc3QwMDZAZ21haWwuY29tIiwiaWF0IjoxNzE0ODg0NzI3LCJleHAiOjE3MTU0ODk1Mjd9.XxtBxSBzy4-9OCiA9TdwtZPhoNHrlnvlz4B0gmCJeKw"
+}
