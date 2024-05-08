@@ -1,0 +1,24 @@
+@url_dev=http://localhost:8080/v1/api/product
+
+### Create new product
+POST {{url_dev}}/createProduct
+Content-Type: application/json
+x-api-key: 9549e9c21ec008ae51a1e43b01679bb1f8f5046a18879361d642f33275a3480495df1f4582ba9a21aca4e6e6d2339f0dd91edac5c61e6cde22631c95ead7ae18
+x-client-id: 6634f83d363ffdd24d0d384b
+// authorzition: accessToken
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM0ZjgzZDM2M2ZmZGQyNGQwZDM4NGIiLCJlbWFpbCI6InRlc3QwMDZAZ21haWwuY29tIiwiaWF0IjoxNzE1MTQ5ODg1LCJleHAiOjE3MTUzMjI2ODV9.RbgYehi39KbJoCudfjsWK4x1WJ_PPSK3qe4qzFCpvhc
+
+{
+    "product_name": "New Tee",
+    "product_description": "High-quality denim tee",
+    "product_price": 50,
+    "product_shop": "6634f7c45edcf6bc221466fb",
+    "product_type": "Clothing",
+    "product_thumb": "product_thumb",
+    "product_quantity": 5,
+    "product_attributes": {
+        "brand": "Levi's",
+        "size": "L",
+        "material": "Denim"
+    }
+}

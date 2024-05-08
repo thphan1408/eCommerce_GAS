@@ -1,5 +1,5 @@
 'use strict'
-import JWT, { decode } from 'jsonwebtoken'
+import JWT from 'jsonwebtoken'
 import asyncHandler from '../helpers/asyncHandler.js'
 import { HEADER } from '../constants/values.constants.js'
 import { AuthFailureError, NotFoundError } from '../core/error.response.js'
@@ -71,8 +71,62 @@ const authentication = asyncHandler(async (req, res, next) => {
   }
 })
 
+const authenticationV2 = asyncHandler(async (req, res, next) => {
+  /**
+   * 1 - Check userId missing?
+   * 2 - get accesstoken
+   * 3 - verify token
+   * 4 - check user in dbs
+   * 5 - check keyStore with userId
+   * 6 - Ok all => return next()
+   */
+  // 1 - 4
+  const userId = req.headers[HEADER.CLIENT_ID]
+  if (!userId) throw new AuthFailureError('Invalid Request')
+
+  // 2
+  const keyStore = await KeyTokenService.findByUserId(userId)
+
+  if (!keyStore) throw new NotFoundError('Not found key')
+
+  // 3
+  if (req.headers[HEADER.REFRESH_TOKEN]) {
+    // Kiểm tra xem có refresh token không
+    try {
+      const refreshToken = req.headers[HEADER.REFRESH_TOKEN]
+      const decodeUser = JWT.verify(refreshToken, keyStore.privateKey)
+      if (userId !== decodeUser.userId)
+        throw new AuthFailureError('Invalid UserId')
+
+      req.keyStore = keyStore
+      req.user = decodeUser
+      req.refreshToken = refreshToken
+
+      return next()
+    } catch (error) {
+      throw error
+    }
+  }
+  const accessToken = req.headers[HEADER.AUTHORIZATION]
+  if (!accessToken) throw new AuthFailureError('Invalid Request')
+
+  // 5
+  try {
+    const decodeUser = JWT.verify(accessToken, keyStore.publicKey)
+    if (userId !== decodeUser.userId)
+      throw new AuthFailureError('Invalid UserId')
+
+    req.keyStore = keyStore
+
+    // 6
+    return next()
+  } catch (error) {
+    throw error
+  }
+})
+
 const verifyJWT = async (token, keySecret) => {
   return await JWT.verify(token, keySecret)
 }
 
-export { createTokenPair, authentication, verifyJWT }
+export { createTokenPair, authentication, verifyJWT, authenticationV2 }

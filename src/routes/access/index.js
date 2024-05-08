@@ -3,7 +3,7 @@
 import express from 'express'
 import AccessController from '../../controllers/access.controller.js'
 import asyncHandler from '../../helpers/asyncHandler.js'
-import { authentication } from '../../auth/authUtils.js'
+import { authenticationV2 } from '../../auth/authUtils.js'
 
 const router = express.Router()
 
@@ -14,7 +14,7 @@ router.post('/shop/signup', asyncHandler(AccessController.signUp))
 router.post('/shop/login', asyncHandler(AccessController.logIn))
 
 // middleware Authentication for logOut
-router.use(authentication)
+router.use(authenticationV2)
 //
 
 // LogOut

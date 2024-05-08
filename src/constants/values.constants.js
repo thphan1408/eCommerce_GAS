@@ -21,6 +21,7 @@ const HEADER = {
   API_KEY: 'x-api-key',
   CLIENT_ID: 'x-client-id',
   AUTHORIZATION: 'authorization',
+  REFRESH_TOKEN: 'x-rtoken-id', // refresh token id
 }
 
 const REASON_STATUS_CODE = {
