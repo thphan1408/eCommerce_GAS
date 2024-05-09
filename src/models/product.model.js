@@ -76,7 +76,24 @@ const electronicSchema = new Schema(
   },
 )
 
+const furnitureSchema = new Schema(
+  {
+    brand: {
+      type: String,
+      required: true,
+    },
+    size: String,
+    material: String,
+    product_shop: { type: Schema.Types.ObjectId, ref: 'Shop' },
+  },
+  {
+    collection: 'furniture',
+    timestamps: true,
+  },
+)
+
 //Export the models
 export const product = model(DOCUMENT_NAME, productSchema)
 export const clothing = model('clothing', clothingSchema)
 export const electronics = model('electronics', electronicSchema)
+export const furniture = model('furniture', furnitureSchema)
