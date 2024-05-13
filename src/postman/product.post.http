@@ -9,15 +9,23 @@ x-client-id: 6634f83d363ffdd24d0d384b
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM0ZjgzZDM2M2ZmZGQyNGQwZDM4NGIiLCJlbWFpbCI6InRlc3QwMDZAZ21haWwuY29tIiwiaWF0IjoxNzE1MjI4Nzg5LCJleHAiOjE3MTU0MDE1ODl9.u9Eu5Da7izmnw-NbjHbUZp1oRkNwwsQM-YnndkiDIpg
 
 {
-    "product_name": "iPhone 14 64GB",
-    "product_description": "New iPhone 14 64GB",
-    "product_price": 500,
-    "product_type": "Electronics",
+    "product_name": "Băng quấn bảo vệ khuỷu tay co giãn tốt tiện dụng khi chơi thể thao cho nam",
+    "product_description": "Áo thun nam MRM kiểu dáng Regular fit tôn dáng cơ thể, làm nổi bật form người mặc thêm nam tính, khỏe khắn mà vẫn thoải mái vận động",
+    "product_price": 123.500,
+    "product_type": "Clothing",
     "product_thumb": "product_thumb",
     "product_quantity": 500,
     "product_attributes": {
-        "manufacturer": "Apple",
-        "model": "iPhone 14",
-        "color": "Gold"
+        "brand": "MRM VietNam China",
+        "size": "XL",
+        "material": "Thun"
     }
 }
+
+### published product by shop
+POST {{url_dev}}/publish/6640e2c82a36b5b5fafee8d0
+Content-Type: application/json
+x-api-key: 9549e9c21ec008ae51a1e43b01679bb1f8f5046a18879361d642f33275a3480495df1f4582ba9a21aca4e6e6d2339f0dd91edac5c61e6cde22631c95ead7ae18
+x-client-id: 6634f83d363ffdd24d0d384b
+// authorzition: accessToken
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM0ZjgzZDM2M2ZmZGQyNGQwZDM4NGIiLCJlbWFpbCI6InRlc3QwMDZAZ21haWwuY29tIiwiaWF0IjoxNzE1NDg3NzEzLCJleHAiOjE3MTU2NjA1MTN9.b5z5eGawJ8HPlYaHE28WD9mbtFaR3DCvoVOJL4V9Xlg
