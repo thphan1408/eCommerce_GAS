@@ -11,6 +11,8 @@ router.get(
   '/search/:keySearch',
   asyncHandler(ProductController.getListSearchProduct),
 )
+router.get('', asyncHandler(ProductController.findAllProducts))
+router.get('/:product_id', asyncHandler(ProductController.findOneProduct))
 
 // middleware Authentication
 router.use(authenticationV2)
@@ -25,6 +27,8 @@ router.post(
   '/unPublish/:id',
   asyncHandler(ProductController.unPublishProductByShop),
 )
+
+router.patch('/:productId', asyncHandler(ProductController.updateProduct))
 
 // QUERY //
 router.get('/drafts/all', asyncHandler(ProductController.getAllDraftForShop)) // Get all draft product for shop

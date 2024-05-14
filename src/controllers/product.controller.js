@@ -23,6 +23,20 @@ class ProductController {
     }).send(res)
   }
 
+  updateProduct = async (req, res, next) => {
+    new SuccessResponse({
+      message: 'Update product success!',
+      metaData: await ProductFactoryV2.updateProduct(
+        req.body.product_type,
+        req.params.productId,
+        {
+          ...req.body,
+          product_shop: req.user.userId,
+        },
+      ),
+    }).send(res)
+  }
+
   // PUT //
   publishProductByShop = async (req, res, next) => {
     new SuccessResponse({
@@ -96,6 +110,32 @@ class ProductController {
       metaData: await ProductFactoryV2.searchProducts(req.params),
     }).send(res)
     // END QUERY //
+  }
+
+  /**
+   * @description Get list all product
+   * @query = { limit, sort, page, filter }
+   */
+  findAllProducts = async (req, res, next) => {
+    new SuccessResponse({
+      message: 'Get find all products success!',
+      metaData: await ProductFactoryV2.findAllProduct(req.query),
+    }).send(res)
+    // END QUERY //
+  }
+
+  /**
+   * @description Get one product
+   * @param {String} product_id
+   * @return {JSON}
+   */
+  findOneProduct = async (req, res, next) => {
+    new SuccessResponse({
+      message: 'Get find one product success!',
+      metaData: await ProductFactoryV2.findOneProduct({
+        product_id: req.params.product_id,
+      }),
+    }).send(res)
   }
 }
 

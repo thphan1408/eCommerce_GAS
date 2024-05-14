@@ -9,11 +9,18 @@ import {
 import { BadRequestError } from '../core/error.response.js'
 import {
   findAllDraftForShop,
+  findAllProducts,
   findAllPublishForShop,
+  findOneProduct,
   publishProductByShop,
   searchProductByUser,
   unPublishProductByShop,
+  updateProductById,
 } from '../models/repositories/product.repo.js'
+import {
+  removeUndefinedObject,
+  updateNestedObjectParser,
+} from '../utils/index.js'
 
 class ProductFactory {
   /**
@@ -31,6 +38,13 @@ class ProductFactory {
     const productClass = ProductFactory.productRegistry[type]
     if (!productClass) throw new BadRequestError(`Invalid product type ${type}`)
     return new productClass(payload).createProduct()
+  }
+
+  static async updateProduct(type, productId, payload) {
+    const productClass = ProductFactory.productRegistry[type]
+    if (!productClass) throw new BadRequestError(`Invalid product type ${type}`)
+
+    return new productClass(payload).updateProduct(productId)
   }
 
   // PUT //
@@ -57,6 +71,27 @@ class ProductFactory {
   // query search
   static async searchProducts({ keySearch }) {
     return await searchProductByUser({ keySearch })
+  }
+
+  // query find all product
+  static async findAllProduct({
+    limit = 50,
+    sort = 'ctime',
+    page = 1,
+    filter = { isPublished: true },
+  }) {
+    return await findAllProducts({
+      limit,
+      sort,
+      page,
+      filter,
+      select: ['product_name', 'product_price', 'product_thumb'],
+    })
+  }
+
+  // query find one product
+  static async findOneProduct({ product_id }) {
+    return await findOneProduct({ product_id, unSelect: ['__v'] })
   }
 }
 
@@ -88,6 +123,14 @@ class Product {
   async createProduct(product_id) {
     return await product.create({ ...this, _id: product_id })
   }
+
+  async updateProduct(productId, bodyUpdate) {
+    return await updateProductById({
+      productId,
+      bodyUpdate,
+      model: product,
+    })
+  }
 }
 
 // define clothing and electronics class
@@ -101,6 +144,32 @@ class Clothing extends Product {
     if (!newProduct) throw new BadRequestError('Product not created')
 
     return newProduct
+  }
+
+  async updateProduct(productId) {
+    /**
+     * 1/ remove attribute has null and undefined value
+     * 2/ check update ở chỗ nào
+     */
+    // console.log(`[1]::`, this)
+    // 1
+    const objParams = removeUndefinedObject(this)
+    // console.log(`[2]::`, this)
+    // 2
+    if (objParams.product_attributes) {
+      // update child
+      await updateProductById({
+        productId,
+        bodyUpdate: updateNestedObjectParser(objParams.product_attributes),
+        model: clothing,
+      })
+    }
+
+    const updateProduct = await super.updateProduct(
+      productId,
+      updateNestedObjectParser(objParams),
+    )
+    return updateProduct
   }
 }
 
